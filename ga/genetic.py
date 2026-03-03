@@ -13,7 +13,12 @@ def fitness(model, individual, batch):
     return (predicted == labels).float().mean().item()
 
 def select(population, fitnesses, k):
-    sorted_pop = [x for _, x in sorted(zip(fitnesses, population), reverse=True)]
+    sorted_pairs = sorted(
+        zip(fitnesses, population),
+        key=lambda x: x[0],   # on trie uniquement sur la fitness
+        reverse=True
+    )
+    sorted_pop = [x[1] for x in sorted_pairs]
     return sorted_pop[:k]
 
 def crossover(parent1, parent2):
@@ -45,5 +50,6 @@ def train_genetic(model, train_loader, generations=20, pop_size=30, select_k=10)
 
         population = new_population
 
+    fitnesses = [fitness(model, ind, batch) for ind in population]
     best_individual = population[fitnesses.index(max(fitnesses))]
     set_weights(model, best_individual)                                            
