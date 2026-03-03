@@ -20,12 +20,12 @@ train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=128, shuffl
 test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=1000, shuffle=False)
 
 # --- 2. Backpropagation ---
-model_bp = MLP()
+model_bp = MLP(784, 32, 10)
 train_backprop(model_bp, train_loader, epochs=5)
 acc_bp = evaluate(model_bp, test_loader)
 
 # --- 3. Algorithme Génétique ---
-model_ga = MLP()
+model_ga = MLP(784, 32, 10)
 train_genetic(model_ga, train_loader, generations=20, pop_size=30, select_k=10)
 acc_ga = evaluate(model_ga, test_loader)
 
