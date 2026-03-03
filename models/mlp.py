@@ -11,6 +11,6 @@ class MLP(nn.Module):
 
     def forward(self, x):
         x = x.view(-1, 784) # Flatten the input
-        x = self.relu(self.fc1(x))
-        x = self.fc2(x)
+        x = self.relu(self.fc1(x)) # Apply the first fully connected layer and ReLU activation
+        x = self.fc2(x) # Apply the second fully connected layer
         return x
